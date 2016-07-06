@@ -19,6 +19,7 @@ Todo Pago - módulo SDK-NodeJS para conexión con gateway de pago
     + [Devolucion parcial](#devolucionparcial)
     + [Formulario hibrido](#formhidrido)
     + [Obtener Credenciales](#credenciales)
+    + [Máximo de cuotas a mostrar en formulario](#maxcuotas)
  + [Diagrama de secuencia](#secuencia)
  + [Tablas de referencia](#tablareferencia)		
  + [Tabla de errores](#codigoerrores)	
@@ -39,7 +40,7 @@ Instalar con [npm](http://github.com/isaacs/npm):
 
 <a name="versionesdenodesoportadas"></a>		
 #### Versiones de node soportadas
-La versi&oacute;n implementada de la SDK, esta testeada para versiones desde Node 10.x en adelante.
+La versi&oacute;n implementada de la SDK, esta testeada para versiones desde Node 0.10.x en adelante.
 <br />
 [<sub>Volver a inicio</sub>](#inicio)
 
@@ -102,7 +103,9 @@ var callback = function(result, err){
 	console.log(err);
 }
 sdk.sendAutorizeRequest(options, parameters, payload, callback);		
-```		
+```	
+<br/>
+
 <ins><strong>datos propios del comercio</strong></ins>
 </br>
 [<sub>Volver a inicio</sub>](#inicio)
@@ -438,9 +441,27 @@ El formulario define callbacks javascript, que son llamados según el estado y l
 
 [<sub>Volver a inicio</sub>](#inicio)
 
+<br>
 
+<a name="maxcuotas"></a>
+####Máximo de cuotas a mostrar en formulario
+Mediante esta funcionalidad, se permite setear el número máximo de cuotas que se desplegará en el formulario de pago.
 
+Para hacer uso de esta funcionalidad debe agregarse en el parámetro **payload** del método **sendAutorizeRequest** el campo **MAXINSTALLMENTS** con el valor máximo de cuotas a ofrecer (generalmente de 1 a 12)
 
+#####Ejemplo
+
+```nodejs		
+payload = {		
+	...........................................................................		
+	'MAXINSTALLMENTS':"6", //Nro maximo de cuotas a mostrar en el formulario, OPCIONAL.
+	...........................................................		
+```
+
+[<sub>Volver a inicio</sub>](#inicio)
+<br>
+
+<br>
 <a name="credenciales"></a>		
 #### Obtener Credenciales	
 - Los datos como Authorization , merchantId y ApiKey se pueden obtener mediante el metodo getCredentials del objeto User llamada desde el sdk.
@@ -464,6 +485,7 @@ El formulario define callbacks javascript, que son llamados según el estado y l
 ```
 </br>
 [<sub>Volver a inicio</sub>](#inicio)
+
 
 
 <a name="secuencia"></a>		
