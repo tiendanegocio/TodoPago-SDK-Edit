@@ -217,11 +217,11 @@ var payload = {
 #### Datos de referencia   
 
 <table style="max-width:200px;">
-<tr><th>Nombre del campo</th><th>Required/Optional</th><th>Mínimo</th><th>Data Type</th><th>Comentarios</th></tr>
+<tr><th>Nombre del campo</th><th>Required/Optional</th><th>Data Type</th><th>Data TypeMínimo</th><th>Comentarios</th></tr>
 <tr><td style="max-width:200px;">CSBTCITY</td><td>Required</td><td>String (50)</td><td>1</td><td>Ciudad / Debe comenzar con una letra</td></tr>
 <tr><td>CSBTCOUNTRY</td><td>Required</td><td>String (2)</td><td>1</td><td>Código <a href="http://apps.cybersource.com/library/documentation/sbc/quickref/countries_alpha_list.pdf">ISO</a></td></tr>
 <tr><td> CSBTCUSTOMERID</td><td>Required</td><td>String (50)</td><td>1</td><td>Identificador del usuario unico logueado al portal (No puede ser una direccion de email)</td></tr><td>
-<tr><td> CSBTEMAIL</td><td>Required</td><td>String (100)</td><td>1</td><td>correo electronico del comprador</td></tr>
+<tr><td> CSBTEMAIL</td><td>Required</td><td>String (100)</td><td>1</td><td>Correo electrónico del comprador con formato válido (solo letras (a-z), números, puntos y sin espacios).</td></tr>
 <tr><td>CSBTFIRSTNAME</td><td>Required</td><td>String (60)</td><td>1</td><td>Nombre del tarjeta habiente / Sin caracteres especiales como acentos invertidos, sólo letras, números y espacios</td></tr>
 <tr><td>CSBTIPADDRESS</td><td>Required</td><td>String (15)</td><td>1</td><td>"End Customer´s IP address, such as 10.1.27.63, reported by your Web server via socket information."</td></tr>
 <tr><td> CSBTLASTNAME</td><td>Required</td><td>String (60)</td><td>1</td><td>Apellido del tarjetahabiente / Sin caracteres especiales como acentos invertidos, sólo letras, números y espacios</td></tr> <td>
@@ -241,7 +241,7 @@ var payload = {
 <tr><td>CSPTGRANDTOTALAMOUNT</td><td>Required</td><td>Decimal (15)</td><td>1</td><td>"Cantidad total de la transaccion./""999999.CC"" Con decimales obligatorios, usando el puntos como separador de decimales. No se permiten comas, ni como separador de miles ni como separador de decimales."</td></tr> 
 <tr><td>CSSTCITY</td><td>Required</td><td>String (50)</td><td>1</td><td>Ciudad / Debe comenzar con una letra</td>
 <tr><td> CSSTCOUNTRY</td><td>Required</td><td>String (2)</td><td>1</td><td><a href="http://apps.cybersource.com/library/documentation/sbc/quickref/countries_alpha_list.pdf">Código ISO</a></td></tr>
-<tr><td>CSSTEMAIL</td><td>Required</td><td>String (100)</td><td>1</td><td>correo electrónico del comprador</td></tr> 
+<tr><td>CSSTEMAIL</td><td>Required</td><td>String (100)</td><td>1</td><td>Correo electrónico del comprador con formato válido (solo letras (a-z), números, puntos y sin espacios).</td></tr> 
 <tr><td>CSSTFIRSTNAME</td><td>Required</td><td>String (60)</td><td>1</td><td>Nombre del tarjeta habiente / Sin caracteres especiales como acentos invertidos, sólo letras, números y espacios</td></tr> 
 <tr><td>CSSTLASTNAME</td><td>Required</td><td>String (60)</td><td>1</td><td>Apellido del tarjetahabiente / Sin caracteres especiales como acentos invertidos, sólo letras, números y espacios</td></tr> 
 <tr><td>CSSTPHONENUMBER</td><td>Required</td><td>String (15)</td><td>6</td><td>"Número de telefono. Cuidar el hecho que por default algunos comercios envían ""54"", contando entonces con 2 de los 6 caracteres requeridos."</td></tr> 
