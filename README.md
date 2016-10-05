@@ -129,6 +129,26 @@ sdk.getAutorizeAnswer(options, parameters, function(result, err){
 		console.log("-------------------");
 	});
 
+result : 
+{ StatusCode = -1,      
+      StatusMessage = APROBADA,     
+      AuthorizationKey = 1294-329E-F2FD-1AD8-3614-1218-2693-1378,       
+      EncodingMethod = XML,     
+      Payload = { Answer = { DATETIME = 2014/08/11 15:24:38,        
+                             RESULTCODE = -1,       
+                             RESULTMESSAGE = APROBADA,      
+                             CURRENCYNAME = Pesos,      
+                             PAYMENTMETHODNAME = VISA,      
+                             TICKETNUMBER = 12,     
+                             CARDNUMBERVISIBLE = 450799******4905,      
+                             AUTHORIZATIONCODE = TEST38,
+                             INSTALLMENTPAYMENTS = 6 }, 
+                { Request = { MERCHANT = 12345678,
+                              OPERATIONID = ABCDEF-1234-12221-FDE1-00000012,
+                              AMOUNT = 1.00,
+                              CURRENCYCODE = 032}
+                }
+    }
 
 ```		
 <strong><ins>*Importante:</ins></strong>El campo AnswerKey se adiciona  en la redireccion que se realiza a alguna de las direcciones ( URL ) epecificadas en el  servicio SendAurhorizationRequest, esto sucede cuando la transaccion ya fue resuelta y es necesario regresar al Site para finalizar la transaccion de pago, tambien se adiciona el campo Order, el cual tendra el contenido enviado en el campo OPERATIONID. para nuestro ejemplo: <strong>http://susitio.com/paydtodopago/ok?Order=27398173292187&Answer=1111-2222-3333-4444-5555-6666-7777</strong>		
@@ -649,6 +669,7 @@ payload = {
 <table>		
 <tr><th>Id mensaje</th><th>Mensaje</th></tr>				
 <tr><td>-1</td><td>Aprobada.</td></tr>
+<tr><td>702</td><td>Usuario invalido.</td></tr>
 <tr><td>1081</td><td>Tu saldo es insuficiente para realizar la transacción.</td></tr>
 <tr><td>1100</td><td>El monto ingresado es menor al mínimo permitido</td></tr>
 <tr><td>1101</td><td>El monto ingresado supera el máximo permitido.</td></tr>

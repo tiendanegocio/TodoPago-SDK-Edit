@@ -6,16 +6,16 @@ var options = {
 };
 
 exampleSendAuthorizeRequest();
-//exampleGetAuthorizeAnswer();
-//exampleGetStatus();
-//exampleGetPaymentMethods();
-//exampleGetByRangeDateTime();
-//exampleReturnRequest();
-//exampleVoidRequest();
-//exampleGetCredentials();
+exampleGetAuthorizeAnswer();
+exampleGetStatus();
+exampleGetPaymentMethods();
+exampleGetByRangeDateTime();
+exampleReturnRequest();
+exampleVoidRequest();
+exampleGetCredentials();
 
 function exampleGetStatus(){
-	sdk.getStatus(options, '2153', '02', function(result, err){
+	sdk.getStatus(options, '2153', '60', function(result, err){
 		console.log("-------------------***-------------------");
 		console.log("getStatus result:");
 		console.log(result);
@@ -64,7 +64,7 @@ function exampleSendAuthorizeRequest(){
 	};
 	//Control de Fraude
 	var fraudControl = {
-		'CSBTCITY': '<Villa General Belgrano',
+		'CSBTCITY': 'Villa General Belgrano',
 		'CSSTCITY': 'Villa General Belgrano',
 
 		'CSBTCOUNTRY': 'AR',
