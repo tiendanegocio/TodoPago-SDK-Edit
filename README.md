@@ -8,6 +8,7 @@ Todo Pago - módulo SDK-NodeJS para conexión con gateway de pago
  + [Uso](#uso)		
     + [Inicializar la clase correspondiente al conector (todo-pago.js)](#initconector)
     + [Solicitud de autorización](#solicitudautorizacion)
+      + [Cantidad de cuotas a mostrar en formulario](#maxmincuotas)
     + [Confirmación de transacción](#confirmatransaccion)
     + [Ejemplo](#ejemplo)
     + [Modo test](#test)
@@ -19,8 +20,7 @@ Todo Pago - módulo SDK-NodeJS para conexión con gateway de pago
     + [Devolucion](#devoluciones)
     + [Devolucion parcial](#devolucionparcial)
     + [Formulario hibrido](#formhidrido)
-    + [Obtener Credenciales](#credenciales)
-    + [Máximo de cuotas a mostrar en formulario](#maxcuotas)
+    + [Obtener Credenciales](#credenciales) 
  + [Diagrama de secuencia](#secuencia)
  + [Tablas de referencia](#tablareferencia)		
  + [Tabla de errores](#codigoerrores)	
@@ -82,30 +82,91 @@ var options = {
 - En este caso hay que llamar a sendAuthorizeRequest(), el resultado se obtendra mediante la funcion callback: 		
 ```nodejs	
 var parameters = {
-		'Session': 'ABCDEF-1234-12221-FDE1-00000200',
-		'Security':'f3d8b72c94ab4a06be2ef7c95490f7d3',
-		'EncodingMethod':'XML',
-		'Merchant':2153,
-		'URL_OK':'http,//someurl.com/ok/',
-		'URL_ERROR':'http,//someurl.com/fail/'	
-	};
+    'Session': 'ABCDEF-1234-12221-FDE1-00000200',
+    'Security':'f3d8b72c94ab4a06be2ef7c95490f7d3',
+    'EncodingMethod':'XML',
+    'Merchant':2153,
+    'URL_OK':'http://someurl.com/ok/',
+    'URL_ERROR':'http://someurl.com/fail/',
+    'MERCHANT': "2153",
+    'OPERATIONID':"60",
+    'CURRENCYCODE': "032",
+    'AMOUNT':"54",
+    'MAXINSTALLMENTS':"3",
+    'MAXINSTALLMENTS':"6"
+  };
+  //Control de Fraude
+  var fraudControl = {
+    'CSBTCITY': 'Villa General Belgrano',
+    'CSSTCITY': 'Villa General Belgrano',
 
+    'CSBTCOUNTRY': 'AR',
+    'CSSTCOUNTRY': 'AR',
 
-var payload = {
-		//operation:
-		'MERCHANT': "2153",
-		'OPERATIONID':"8000",
-		'CURRENCYCODE': 032,
-		'AMOUNT':"1.00",
-	};
+    'CSBTEMAIL': 'todopago@hotmail.com',
+    'CSSTEMAIL': 'todopago@hotmail.com',
 
-var callback = function(result, err){
-	console.log(result);
-	console.log(err);
-}
-sdk.sendAutorizeRequest(options, parameters, payload, callback);		
+    'CSBTFIRSTNAME': 'Juan',
+    'CSSTFIRSTNAME': 'Juan',
+
+    'CSBTLASTNAME': 'Perez',
+    'CSSTLASTNAME': 'Perez',
+
+    'CSBTPHONENUMBER': '541160913988',
+    'CSSTPHONENUMBER': '541160913988',
+
+    'CSBTPOSTALCODE': ' 1010',
+    'CSSTPOSTALCODE': ' 1010',
+
+    'CSBTSTATE': 'B',
+    'CSSTSTATE': 'B',
+
+    'CSBTSTREET1': 'Cerrito 740',
+    'CSSTSTREET1': 'Cerrito 740',
+
+    'CSBTCUSTOMERID': '453458',
+    'CSBTIPADDRESS': '192.0.0.4',
+    'CSPTCURRENCY': 'ARS',
+    'CSPTGRANDTOTALAMOUNT': '99.00',
+    'CSMDD7': '',
+    'CSMDD8': 'Y',
+    'CSMDD9': '',
+    'CSMDD10': '',
+    'CSMDD11': '',
+    'CSMDD12': '',
+    'CSMDD13': '',
+    'CSMDD14': '',
+    'CSMDD15': '',
+    'CSMDD16': '',
+    'CSITPRODUCTCODE': 'electronic_good#chocho',
+    'CSITPRODUCTDESCRIPTION': 'NOTEBOOK L845 SP4304LA DF TOSHIBA#chocho',
+    'CSITPRODUCTNAME': 'NOTEBOOK L845 SP4304LA DF TOSHIBA#chocho',
+    'CSITPRODUCTSKU': 'LEVJNSL36GN#chocho',
+    'CSITTOTALAMOUNT': '1254.40#10.00',
+    'CSITQUANTITY': '1#1',
+    'CSITUNITPRICE': '1254.40#15.00'
+  };
+
+  sdk.sendAutorizeRequest(options, parameters, fraudControl, function(result, err){
+    console.log("------------- sendAutorizeRequest ---------------");
+    if(result){
+      console.log(result);
+    }
+    if(err){
+      console.error(err);
+    }
+    console.log("------------------------------------------------");
+  });		
 ```	
 <br/>
+<a name="maxmincuotas"></a>
+###### Cantidad de cuotas a mostrar en formulario
+Donde MININSTALLMENTS y MAXINSTALLMENTS son datos opcionales para informar la cantidad mínima y máxima de cuotas que ofrecerá el formulario de pago (generalmente de 1 a 12)
+
+Mediante esta funcionalidad, se permite setear el número máximo de cuotas que se desplegará en el formulario de pago.
+
+<br/>
+
 
 <ins><strong>datos propios del comercio</strong></ins>
 </br>
@@ -478,6 +539,7 @@ El formulario implementado debe contar al menos con los siguientes campos.
 	<select id="tipoDocCbx"></select>
 	<input id="nroDocTxt"/>
 	<input id="emailTxt"/><br/>
+        <button id="MY_btnPagarConBilletera" class="tp-button"/>
 	<button id="MY_btnConfirmarPago"/>
 </body>
 ```
@@ -494,6 +556,7 @@ window.TPFORMAPI.hybridForm.initForm({
     callbackValidationErrorFunction: 'validationCollector',
 	callbackCustomSuccessFunction: 'customPaymentSuccessResponse',
 	callbackCustomErrorFunction: 'customPaymentErrorResponse',
+	callbackBilleteraFunction: 'billeteraPaymentResponse',
 	botonPagarId: 'MY_btnConfirmarPago',
 	modalCssClass: 'modal-class',
 	modalContentCssClass: 'modal-content',
@@ -516,6 +579,8 @@ function customPaymentSuccessResponse(response) {
 }
 function customPaymentErrorResponse(response) {
 }
+function billeteraPaymentResponse(response) {
+}
 function initLoading() {
 }
 function stopLoading() {
@@ -532,26 +597,6 @@ El formulario define callbacks javascript, que son llamados según el estado y l
 <br>
 
 [<sub>Volver a inicio</sub>](#inicio)
-
-<br>
-
-<a name="maxcuotas"></a>
-####Máximo de cuotas a mostrar en formulario
-Mediante esta funcionalidad, se permite setear el número máximo de cuotas que se desplegará en el formulario de pago.
-
-Para hacer uso de esta funcionalidad debe agregarse en el parámetro **payload** del método **sendAutorizeRequest** el campo **MAXINSTALLMENTS** con el valor máximo de cuotas a ofrecer (generalmente de 1 a 12)
-
-#####Ejemplo
-
-```nodejs		
-payload = {		
-	...........................................................................		
-	'MAXINSTALLMENTS':"6", //Nro maximo de cuotas a mostrar en el formulario, OPCIONAL.
-	...........................................................		
-```
-
-[<sub>Volver a inicio</sub>](#inicio)
-<br>
 
 <br>
 <a name="credenciales"></a>		

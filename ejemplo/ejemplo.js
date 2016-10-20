@@ -37,7 +37,7 @@ function exampleGetPaymentMethods(){
 
 function exampleGetAuthorizeAnswer(){
 	var parameters = {
-		'Security'   : '1234567890ABCDEF1234567890ABCDEF',
+		'Security'   : 'f3d8b72c94ab4a06be2ef7c95490f7d3',
 		'Merchant' 	 : '2153',
 		'RequestKey' : '710268a7-7688-c8bf-68c9-430107e6b9da',
 		'AnswerKey'  : '693ca9cc-c940-06a4-8d96-1ab0d66f3ee6'
@@ -52,15 +52,17 @@ function exampleGetAuthorizeAnswer(){
 function exampleSendAuthorizeRequest(){
 	var parameters = {
 		'Session': 'ABCDEF-1234-12221-FDE1-00000200',
-		'Security':'1234567890ABCDEF1234567890ABCDEF',
+		'Security':'f3d8b72c94ab4a06be2ef7c95490f7d3',
 		'EncodingMethod':'XML',
 		'Merchant':2153,
 		'URL_OK':'http://someurl.com/ok/',
 		'URL_ERROR':'http://someurl.com/fail/',
 		'MERCHANT': "2153",
 		'OPERATIONID':"60",
-		'CURRENCYCODE': 032,
-		'AMOUNT':"54"
+		'CURRENCYCODE': "032",
+		'AMOUNT':"54",
+		'MAXINSTALLMENTS':"3",
+		'MAXINSTALLMENTS':"6"
 	};
 	//Control de Fraude
 	var fraudControl = {
