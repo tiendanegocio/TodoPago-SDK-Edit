@@ -207,7 +207,8 @@ result :
                 { Request = { MERCHANT = 12345678,
                               OPERATIONID = ABCDEF-1234-12221-FDE1-00000012,
                               AMOUNT = 1.00,
-                              CURRENCYCODE = 032}
+                              CURRENCYCODE = 032,
+			      AMOUNTBUYER = 1.20}
                 }
     }
 
@@ -215,7 +216,9 @@ result :
 <strong><ins>*Importante:</ins></strong>El campo AnswerKey se adiciona  en la redireccion que se realiza a alguna de las direcciones ( URL ) epecificadas en el  servicio SendAurhorizationRequest, esto sucede cuando la transaccion ya fue resuelta y es necesario regresar al Site para finalizar la transaccion de pago, tambien se adiciona el campo Order, el cual tendra el contenido enviado en el campo OPERATIONID. para nuestro ejemplo: <strong>http://susitio.com/paydtodopago/ok?Order=27398173292187&Answer=1111-2222-3333-4444-5555-6666-7777</strong>		
 		
 Este método devuelve el resumen de los datos de la transacción.		
-<br />	
+<br />
+<ins><strong>Aclaración:</strong></ins> El campo AMOUNTBUYER es el monto efectivamente pagado por el comprador, que incluye el costo financiero total.
+<br />
 [<sub>Volver a inicio</sub>](#inicio)
 
 
