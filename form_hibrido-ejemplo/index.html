@@ -14,7 +14,7 @@
 			<div id="tp-content-form">
 				<span class="tp-label">Elegí tu forma de pago </span>
 				<div>
-					<select id="formaDePagoCbx"></select>	
+					<select id="formaDePagoCbx"></select>
 				</div>
 				<div>
 					<select id="bancoCbx"></select>
@@ -23,6 +23,10 @@
 					<select id="promosCbx" class="left"></select>
 					<label id="labelPromotionTextId" class="left tp-label"></label>
 					<div class="clear"></div>
+				</div>
+				<div><!-- Para los casos en el que el comercio opera con PEI -->
+					<label id="labelPeiCheckboxId"></label>
+					<input id="peiCbx"/>
 				</div>
 				<div>
 					<input id="numeroTarjetaTxt"/>
@@ -45,16 +49,20 @@
 					<select id="tipoDocCbx"></select>
 				</div>
 				<div>
-					<input id="nroDocTxt"/>	
+					<input id="nroDocTxt"/>
 				</div>
 				<div>
 					<input id="emailTxt"/><br/>
 				</div>
+				<div><!-- Para los casos en el que el comercio opera con PEI -->
+							<label id="labelPeiTokenTextId"></label>
+				<input id="peiTokenTxt"/>
+			</div>
 				<div id="tp-bt-wrapper">
 					<button id="MY_btnPagarConBilletera" class="tp-button"/>
 					<button id="MY_btnConfirmarPago" class="tp-button"/>
 				</div>
-			</div>	
+			</div>
 		</div>
 
 	</body>
@@ -87,7 +95,7 @@
 	            defaultMail: mail,
 	            defaultTipoDoc: defDniType*/
 	        });
-		
+
 		//callbacks de respuesta del pago
 		function validationCollector(parametros) {
 			console.log("My validator collector");

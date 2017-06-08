@@ -2,23 +2,25 @@ var sdk = require('../lib/todo-pago');
 
 var options = {
 	endpoint : "developers",
-	Authorization:'PRISMA f3d8b72c94ab4a06be2ef7c95490f7d3'
+	Authorization:'TODOPAGO 1ac443c358f04c9f80bf8867efc57885'
 };
+
 
 exampleSendAuthorizeRequest();
 exampleGetAuthorizeAnswer();
 exampleGetStatus();
 exampleGetPaymentMethods();
+exampleDiscoverPaymentMethods();
 exampleGetByRangeDateTime();
 exampleReturnRequest();
 exampleVoidRequest();
 exampleGetCredentials();
 
 function exampleGetStatus(){
-	sdk.getStatus(options, '2153', '60', function(result, err){
+	sdk.getStatus(options, '15846', '60', function(result, err){
 		console.log("-------------------***-------------------");
 		console.log("getStatus result:");
-		console.log(result);
+		console.log(JSON.stringify(result));
 		console.log("getStatus error:");
 		console.log(err);
 		console.log("-------------------***-------------------");
@@ -26,10 +28,20 @@ function exampleGetStatus(){
 }
 
 function exampleGetPaymentMethods(){
-	sdk.getPaymentMethods(options, '2153', function(result, err){
+	sdk.getPaymentMethods(options, '15846', function(result, err){
 		console.log("-------------------***-------------------");
 		console.log("getAllPaymentMethods");
-		console.log(result);
+		console.log(JSON.stringify(result));
+		console.log(err);
+		console.log("-------------------***-------------------");
+	});
+}
+
+function exampleDiscoverPaymentMethods(){
+	sdk.discoverPaymentMethods(options, function(result, err){
+		console.log("-------------------***-------------------");
+		console.log("discoverPaymentMethods");
+		console.log(JSON.stringify(result));
 		console.log(err);
 		console.log("-------------------***-------------------");
 	});
@@ -49,12 +61,13 @@ function exampleGetAuthorizeAnswer(){
 		console.log("-------------------");
 	});
 }
+
 function exampleSendAuthorizeRequest(){
 	var parameters = {
 		'Session': 'ABCDEF-1234-12221-FDE1-00000200',
 		'Security':'f3d8b72c94ab4a06be2ef7c95490f7d3',
 		'EncodingMethod':'XML',
-		'Merchant':2153,
+		'Merchant':15846,
 		'URL_OK':'http://someurl.com/ok/',
 		'URL_ERROR':'http://someurl.com/fail/',
 		'MERCHANT': "2153",
@@ -127,12 +140,14 @@ function exampleSendAuthorizeRequest(){
 		console.log("------------------------------------------------");
 	});
 }
+
 function exampleGetByRangeDateTime(){
 
 	var parameters = {
 		'MERCHANT': '2153',
-		'STARTDATE': '2015-01-01T17:34:42.903',
-		'ENDDATE': '2015-12-10T17:34:42.903'
+		'STARTDATE': '2015-01-01',
+		'ENDDATE': '2015-12-20',
+                'PAGENUMBER': 1
 	};
 
 	sdk.getByRangeDateTime(options, parameters, function(result, err){
@@ -182,14 +197,14 @@ function exampleVoidRequest(){
 
 
 function exampleGetCredentials(){
-	var email = 'sebastian.macias@softtek.com';
-	var pass = 'Password01';
+	var email = 'midireccion@deemail.com';
+	var pass = 'MyPassword';
 
 	sdk.getCredentials(email, pass, options ,  function(result, err){
 		console.log("-------------------***-------------------");
 		console.log("getCredentials:");
-		console.log(result);
-		console.log('err: ');
+		console.log('RESULTADO FINAL' + JSON.stringify(result));
+		console.log('Error: ');
 		console.log(err);
 		console.log("-------------------***-------------------");
 	});

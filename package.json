@@ -1,6 +1,6 @@
 {
   "name": "todo-pago",
-  "version": "1.1.0",
+  "version": "1.4.0",
   "keywords": [
     "sdk",
     "TodoPago",
@@ -12,9 +12,9 @@
 	"xml2js": "0.4.10",
 	"node-rest-client": "1.5.1"
   },
-  "_id": "TodoPago@0.1.4",
+  "_id": "TodoPago@1.4.0",
   "scripts": {},
   "_shasum": "3f9b8e951ce89206de5bde361c2cb8b9952e2b69",
-  "_from": "TodoPago@0.1.4",
+  "_from": "TodoPago@1.4.0",
   "_npmVersion": "1.4.23"
 }
