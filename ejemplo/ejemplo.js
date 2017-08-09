@@ -1,20 +1,29 @@
 var sdk = require('../lib/todo-pago');
+var stateCodes = require('../lib/stateCodes.json');
+var Promise = require('promise');
 
 var options = {
 	endpoint : "developers",
-	Authorization:'TODOPAGO 1ac443c358f04c9f80bf8867efc57885'
+	Authorization: 'TODOPAGO cbb3ffd1bbdd45e48818756dff1f51ab'
 };
 
-
+//exampleGoogleApiTest();
 exampleSendAuthorizeRequest();
-exampleGetAuthorizeAnswer();
-exampleGetStatus();
-exampleGetPaymentMethods();
-exampleDiscoverPaymentMethods();
-exampleGetByRangeDateTime();
-exampleReturnRequest();
-exampleVoidRequest();
-exampleGetCredentials();
+//exampleGetAuthorizeAnswer();
+//exampleGetStatus();
+//exampleGetPaymentMethods();
+//exampleDiscoverPaymentMethods();
+//exampleGetByRangeDateTime();
+//exampleReturnRequest();
+//exampleVoidRequest();
+//exampleGetCredentials();
+function exampleGoogleApiTest(billingAddress, shippingAddress){
+	return new Promise(function(resolve, reject) {
+	sdk.getGoogleApiAddress(options, 'cucha cucha 2942', function(result, err){
+		resolve(result);
+	});
+})
+}
 
 function exampleGetStatus(){
 	sdk.getStatus(options, '15846', '60', function(result, err){
@@ -65,22 +74,24 @@ function exampleGetAuthorizeAnswer(){
 function exampleSendAuthorizeRequest(){
 	var parameters = {
 		'Session': 'ABCDEF-1234-12221-FDE1-00000200',
-		'Security':'f3d8b72c94ab4a06be2ef7c95490f7d3',
+		'Security':'cbb3ffd1bbdd45e48818756dff1f51ab',
 		'EncodingMethod':'XML',
 		'Merchant':15846,
 		'URL_OK':'http://someurl.com/ok/',
 		'URL_ERROR':'http://someurl.com/fail/',
-		'MERCHANT': "2153",
+		'MERCHANT': "15846",
 		'OPERATIONID':"60",
 		'CURRENCYCODE': "032",
 		'AMOUNT':"54",
 		'MAXINSTALLMENTS':"3",
-		'MAXINSTALLMENTS':"6"
+		'MAXINSTALLMENTS':"6",
+		'TIMEOUT':"1800000",
+		'AVAILABLEPAYMENTMETHODSIDS':"1#42#500"
 	};
 	//Control de Fraude
 	var fraudControl = {
 		'CSBTCITY': 'Villa General Belgrano',
-		'CSSTCITY': 'Villa General Belgrano',
+		'CSSTCITY': 'Bernal',
 
 		'CSBTCOUNTRY': 'AR',
 		'CSSTCOUNTRY': 'AR',
@@ -104,7 +115,7 @@ function exampleSendAuthorizeRequest(){
 		'CSSTSTATE': 'B',
 
 		'CSBTSTREET1': 'Cerrito 740',
-		'CSSTSTREET1': 'Cerrito 740',
+		'CSSTSTREET1': 'Av San Martin 2500',
 
 		'CSBTCUSTOMERID': '453458',
 		'CSBTIPADDRESS': '192.0.0.4',
@@ -197,8 +208,8 @@ function exampleVoidRequest(){
 
 
 function exampleGetCredentials(){
-	var email = 'midireccion@deemail.com';
-	var pass = 'MyPassword';
+	var email = 'alan.corcos@softtek.com';
+	var pass = 'Camino01';
 
 	sdk.getCredentials(email, pass, options ,  function(result, err){
 		console.log("-------------------***-------------------");

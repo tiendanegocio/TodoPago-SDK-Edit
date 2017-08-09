@@ -20,14 +20,14 @@ Todo Pago - módulo SDK-NodeJS para conexión con gateway de pago
       + [Características](#caracteristicas)
         + [Status de la operación](#status)
         + [Consulta de operaciones por rango de tiempo](#statusdate)
-        + [Devolución](#devolucion)
+        + [Devoluciones](#devoluciones)
         + [Devolución parcial](#devolucionparcial)
         + [Formulario híbrido](#formhidrido)
         + [Obtener Credenciales](#credenciales)
  + [Tablas de referencia](#tablareferencia)
  + [Tabla de errores operativos](#codigoerrores)
  + [Tabla de errores de integración](#interrores)
- 
+
 
 <a name="instalacion"></a>
 ## Instalación
@@ -104,7 +104,7 @@ Una vez adheridos se creará automáticamente una cuenta virtual, en la cual se 
 
 <a name="secuencia"></a>
 ## Diagrama de secuencia
-![imagen de configuracion](https://raw.githubusercontent.com/TodoPago/imagenes/master/README.img/secuencia-page-001.jpg)
+![imagen de configuracion](https://raw.githubusercontent.com/TodoPago/imagenes/master/README.img/secuencia-003.jpg)
 
 <a name="solicitudautorizacion"></a>
 #### Solicitud de autorización
@@ -912,6 +912,8 @@ sdk.getStatus(options, merchant, operationId, callback);// Merchant es el id sit
 ```
 - Dicho m&eacute;todo retornara el status actual de la transacci&oacute;n en Todopago.
 
+![estado](https://raw.githubusercontent.com/TodoPago/imagenes/master/README.img/secuencia-status.jpg)
+
 <table>
   <tr>
     <th>Campo</th>
@@ -1033,6 +1035,9 @@ Usando el punto como separador de decimales. No se permiten comas, ni como separ
 
 <a name="statusdate"></a>
 #### Consulta de operaciones por rango de tiempo
+
+![obtener operaciones por rango](https://raw.githubusercontent.com/TodoPago/imagenes/master/README.img/secuencia-getoperations.jpg)
+
 En este caso hay que llamar a getByRangeDateTime() y devolvera todas las operaciones realizadas en el rango de fechas dado
 
 ```nodejs
@@ -1058,6 +1063,11 @@ En este caso hay que llamar a getByRangeDateTime() y devolvera todas las operaci
 
 <a name="devoluciones"></a>
 #### Devoluciones
+
+![devolucion total](https://raw.githubusercontent.com/TodoPago/imagenes/master/README.img/secuencia-devolucion-total.jpg)
+
+![devolucion parcial](https://raw.githubusercontent.com/TodoPago/imagenes/master/README.img/secuencia-devolucion-parcial.jpg)
+
 El SDK dispone de métodos para realizar la devolución online, total o parcial, de una transacción realizada a traves de TodoPago.
 - Devolución Total
 - Se debe llamar al método ```voidRequest``` de la siguiente manera:
@@ -1089,7 +1099,7 @@ _*Es requerida la presencia de sólo uno de estos 2 campos_
 	});
 ```
 
-- También se puede llamar al método ```voidRequest``` de la esta otra manera:
+- También se puede llamar al método ```voidRequest``` de esta otra manera:
 ```nodejs
 
 	var parameters = {
@@ -1106,12 +1116,14 @@ _*Es requerida la presencia de sólo uno de estos 2 campos_
 		console.log(err);
 		console.log("-------------------***-------------------");
 	});
+```
 
 [<sub>Volver a inicio</sub>](#inicio)
 
 <a name="devolucionparcial"></a>
 #### Devolución parcial
 Se debe llamar al método ```returnRequest``` de la siguiente manera:
+
 ```nodejs
 
 	var parameters = {
@@ -1269,6 +1281,9 @@ El formulario define callbacks javascript, que son llamados según el estado y l
 
 <a name="credenciales"></a>
 #### Obtener Credenciales
+
+![credenciales](https://raw.githubusercontent.com/TodoPago/imagenes/master/README.img/secuencia-credenciales.jpg)
+
 - Los datos como Authorization , merchantId y ApiKey se pueden obtener mediante el método getCredentials del objeto User llamada desde el sdk.
 - Se debe pasar por parámetro los datos de ingreso de todoPago (mail y password) en caso de no tener una cuenta podes registrarte en http://www.todopago.com.ar/registrate  y generar tus credenciales en Soluciones para Vendedores -> Comercios:Integración
 
@@ -1333,7 +1348,7 @@ El formulario define callbacks javascript, que son llamados según el estado y l
 
 <table>
 <tr><th>Id mensaje</th><th>Mensaje</th></tr>
-<tr><td>-1</td><td>Aprobada.</td></tr>
+<tr><td>-1</td><td>Tu compra fue exitosa.</td></tr>
 <tr><td>1081</td><td>Tu saldo es insuficiente para realizar la transacción.</td></tr>
 <tr><td>1100</td><td>El monto ingresado es menor al mínimo permitido</td></tr>
 <tr><td>1101</td><td>El monto ingresado supera el máximo permitido.</td></tr>
@@ -1353,16 +1368,21 @@ El formulario define callbacks javascript, que son llamados según el estado y l
 <tr><td>90000</td><td>La cuenta destino de los fondos es inválida. Verificá la información ingresada en Mi Perfil.</td></tr>
 <tr><td>90001</td><td>La cuenta ingresada no pertenece al CUIT/ CUIL registrado.</td></tr>
 <tr><td>90002</td><td>No pudimos validar tu CUIT/CUIL.  Comunicate con nosotros <a href="#contacto" target="_blank">acá</a> para más información.</td></tr>
+<tr><td>99005</td><td>Tu compra no pudo realizarse. Iniciala nuevamente.</td></tr>
 <tr><td>99900</td><td>El pago fue realizado exitosamente</td></tr>
 <tr><td>99901</td><td>No hemos encontrado tarjetas vinculadas a tu Billetera. Podés  adherir medios de pago desde www.todopago.com.ar</td></tr>
 <tr><td>99902</td><td>No se encontro el medio de pago seleccionado</td></tr>
 <tr><td>99903</td><td>Lo sentimos, hubo un error al procesar la operación. Por favor reintentá más tarde.</td></tr>
+<tr><td>99904</td><td>Tu compra no puede ser realizada. Comunicate con tu vendedor.</td></tr>
+<tr><td>99953</td><td>Tu compra no pudo realizarse. Iniciala nuevamente o utilizá otro medio de pago.</td></tr>
+<tr><td>99960</td><td>Esta compra requiere autorización de VISA. Comunicate al número que se encuentra al dorso de tu tarjeta.</td></tr>
+<tr><td>99961</td><td>Esta compra requiere autorización de AMEX. Comunicate al número que se encuentra al dorso de tu tarjeta.</td></tr>
 <tr><td>99970</td><td>Lo sentimos, no pudimos procesar la operación. Por favor reintentá más tarde.</td></tr>
 <tr><td>99971</td><td>Lo sentimos, no pudimos procesar la operación. Por favor reintentá más tarde.</td></tr>
 <tr><td>99978</td><td>Lo sentimos, no pudimos procesar la operación. Por favor reintentá más tarde.</td></tr>
 <tr><td>99979</td><td>Lo sentimos, el pago no pudo ser procesado.</td></tr>
 <tr><td>99980</td><td>Ya realizaste un pago en este sitio por el mismo importe. Si querés realizarlo nuevamente esperá 5 minutos.</td></tr>
-<tr><td>99982</td><td>En este momento la operación no puede ser realizada. Por favor intentá más tarde.</td></tr>
+<tr><td>99982</td><td>Tu compra no pudo ser procesada. Iniciala nuevamente utilizando otro medio de pago.</td></tr>
 <tr><td>99983</td><td>Lo sentimos, el medio de pago no permite la cantidad de cuotas ingresadas. Por favor intentá más tarde.</td></tr>
 <tr><td>99984</td><td>Lo sentimos, el medio de pago seleccionado no opera en cuotas.</td></tr>
 <tr><td>99985</td><td>Lo sentimos, el pago no pudo ser procesado.</td></tr>
@@ -1374,7 +1394,7 @@ El formulario define callbacks javascript, que son llamados según el estado y l
 <tr><td>99991</td><td>Los datos informados son incorrectos. Por favor ingresalos nuevamente.</td></tr>
 <tr><td>99992</td><td>La fecha de vencimiento es incorrecta. Por favor seleccioná otro medio de pago o actualizá los datos.</td></tr>
 <tr><td>99993</td><td>La tarjeta ingresada no está vigente. Por favor seleccioná otra tarjeta o actualizá los datos.</td></tr>
-<tr><td>99994</td><td>El saldo de tu tarjeta no te permite realizar esta operacion.</td></tr>
+<tr><td>99994</td><td>El saldo de tu tarjeta no te permite realizar esta compra. Iniciala nuevamente utilizando otro medio de pago.</td></tr>
 <tr><td>99995</td><td>La tarjeta ingresada es invalida. Seleccioná otra tarjeta para realizar el pago.</td></tr>
 <tr><td>99996</td><td>La operación fué rechazada por el medio de pago porque el monto ingresado es inválido.</td></tr>
 <tr><td>99997</td><td>Lo sentimos, en este momento la operación no puede ser realizada. Por favor intentá más tarde.</td></tr>
@@ -1389,7 +1409,6 @@ El formulario define callbacks javascript, que son llamados según el estado y l
 
 <table>
 <tr><td>**Id mensaje**</td><td>**Descripción**</td></tr>
-<tr><td>99977</td><td>Transaccion denegada por validador de TP</td></tr>
 <tr><td>98001 </td><td>ERROR: El campo CSBTCITY es requerido</td></tr>
 <tr><td>98002 </td><td>ERROR: El campo CSBTCOUNTRY es requerido</td></tr>
 <tr><td>98003 </td><td>ERROR: El campo CSBTCUSTOMERID es requerido</td></tr>
@@ -1480,4 +1499,3 @@ El formulario define callbacks javascript, que son llamados según el estado y l
 </table>
 
 [<sub>Volver a inicio</sub>](#inicio)
-
