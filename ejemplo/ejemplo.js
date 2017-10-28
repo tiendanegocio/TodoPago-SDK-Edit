@@ -3,20 +3,21 @@ var stateCodes = require('../lib/stateCodes.json');
 var Promise = require('promise');
 
 var options = {
-	endpoint : "developers",
-	Authorization: 'TODOPAGO cbb3ffd1bbdd45e48818756dff1f51ab'
+	endpoint : 'developers',
+	Authorization:'TODOPAGO 45025C1E041EF13706C3992340A4393D'
 };
 
-//exampleGoogleApiTest();
+exampleGoogleApiTest();
 exampleSendAuthorizeRequest();
-//exampleGetAuthorizeAnswer();
-//exampleGetStatus();
-//exampleGetPaymentMethods();
-//exampleDiscoverPaymentMethods();
-//exampleGetByRangeDateTime();
-//exampleReturnRequest();
-//exampleVoidRequest();
-//exampleGetCredentials();
+exampleGetAuthorizeAnswer();
+exampleGetStatus();
+exampleGetPaymentMethods();
+exampleDiscoverPaymentMethods();
+exampleGetByRangeDateTime();
+exampleReturnRequest();
+exampleVoidRequest();
+exampleGetCredentials();
+
 function exampleGoogleApiTest(billingAddress, shippingAddress){
 	return new Promise(function(resolve, reject) {
 	sdk.getGoogleApiAddress(options, 'cucha cucha 2942', function(result, err){
@@ -90,8 +91,8 @@ function exampleSendAuthorizeRequest(){
 	};
 	//Control de Fraude
 	var fraudControl = {
-		'CSBTCITY': 'Villa General Belgrano',
-		'CSSTCITY': 'Bernal',
+		'CSBTCITY': 'Buenos aires',
+		'CSSTCITY': 'Buenos aires',
 
 		'CSBTCOUNTRY': 'AR',
 		'CSSTCOUNTRY': 'AR',
@@ -114,8 +115,8 @@ function exampleSendAuthorizeRequest(){
 		'CSBTSTATE': 'B',
 		'CSSTSTATE': 'B',
 
-		'CSBTSTREET1': 'Cerrito 740',
-		'CSSTSTREET1': 'Av San Martin 2500',
+		'CSBTSTREET1': 'cespedes 2900',
+		'CSSTSTREET1': 'cespedes 2900',
 
 		'CSBTCUSTOMERID': '453458',
 		'CSBTIPADDRESS': '192.0.0.4',
@@ -155,16 +156,17 @@ function exampleSendAuthorizeRequest(){
 function exampleGetByRangeDateTime(){
 
 	var parameters = {
-		'MERCHANT': '2153',
-		'STARTDATE': '2015-01-01',
-		'ENDDATE': '2015-12-20',
+		'MERCHANT': '89118',
+		'STARTDATE': '2015-01-01T10:00:00',
+		'ENDDATE': '2015-01-10T11:00:00',
                 'PAGENUMBER': 1
 	};
 
 	sdk.getByRangeDateTime(options, parameters, function(result, err){
 		console.log("-------------------***-------------------");
 		console.log("GetByRangeDateTime");
-		console.log(result);
+		console.log(JSON.stringify(result, null, 4));
+		console.log("-------------------***-------------------");
 		console.log(err);
 		console.log("-------------------***-------------------");
 	});
