@@ -1431,7 +1431,7 @@ El formulario define callbacks javascript, que son llamados según el estado y l
 ## Tablas de Referencia
 ###### [Provincias](#p)
 
-<p>Solo utilizado para incluir los datos de control de fraude</p>
+<p>Los siguientes códigos son utilizados para control de fraude y para el cálculo de retenciones del Impuesto sobre los Ingresos Brutos.</p>
 <table>
 <tr><th>Provincia</th><th>Código</th></tr>
 <tr><td>CABA</td><td>C</td></tr>
